@@ -18,6 +18,7 @@ import { CropScanResult } from '../types';
 import { SAMPLE_LEAF_IMAGES } from '../data/mockData';
 import { Language } from '../types';
 import { supabase } from '../lib/supabase';
+import { apiFetch } from '../lib/api';
 
 const CROPS_LIST = [
   'Paddy (Rice)',
@@ -51,7 +52,7 @@ export const CropDoctorView: React.FC<CropDoctorViewProps> = ({ onScanComplete, 
     const loadHistory = async () => {
       const session = supabase ? (await supabase.auth.getSession()).data.session : null;
       if (!session?.access_token) return;
-      const response = await fetch('/api/crop/history', {
+      const response = await apiFetch('/api/crop/history', {
         headers: { Authorization: `Bearer ${session.access_token}` },
       });
       if (!active || !response.ok) return;
@@ -125,7 +126,7 @@ export const CropDoctorView: React.FC<CropDoctorViewProps> = ({ onScanComplete, 
 
     try {
       const session = supabase ? (await supabase.auth.getSession()).data.session : null;
-      const res = await fetch('/api/crop/analyze', {
+      const res = await apiFetch('/api/crop/analyze', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

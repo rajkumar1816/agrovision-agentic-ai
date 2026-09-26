@@ -12,6 +12,7 @@ import {
   Info
 } from 'lucide-react';
 import { FertilizerRecommendation, SoilType, GrowthStage, CropType } from '../types';
+import { apiFetch } from '../lib/api';
 
 const CROPS: CropType[] = [
   'Paddy (Rice)',
@@ -59,7 +60,7 @@ export const FertilizerAdvisorView: React.FC = () => {
   const calculatePlan = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('/api/ai/fertilizer-recommend', {
+      const res = await apiFetch('/api/ai/fertilizer-recommend', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

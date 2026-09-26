@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { SoilTelemetry } from '../types';
 import { INITIAL_SOIL_TELEMETRY, HOURLY_SOIL_HISTORY } from '../data/mockData';
+import { apiFetch } from '../lib/api';
 
 export const SmartIrrigationView: React.FC = () => {
   const [telemetry, setTelemetry] = useState<SoilTelemetry>(INITIAL_SOIL_TELEMETRY);
@@ -31,7 +32,7 @@ export const SmartIrrigationView: React.FC = () => {
   // Fetch telemetry
   const fetchTelemetry = async () => {
     try {
-      const res = await fetch('/api/iot/soil-moisture');
+      const res = await apiFetch('/api/iot/soil-moisture');
       const data = await res.json();
       if (data.success && data.telemetry) {
         setTelemetry(data.telemetry);
@@ -55,7 +56,7 @@ export const SmartIrrigationView: React.FC = () => {
   const handleSimulatePush = async (val: number) => {
     setIsUpdating(true);
     try {
-      const res = await fetch('/api/iot/soil-moisture', {
+      const res = await apiFetch('/api/iot/soil-moisture', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

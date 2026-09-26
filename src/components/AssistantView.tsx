@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Language, FarmerProfile } from '../types';
 import { LANGUAGE_OPTIONS } from '../data/mockData';
+import { apiFetch } from '../lib/api';
 
 interface Message {
   id: string;
@@ -176,7 +177,7 @@ export const AssistantView: React.FC<AssistantViewProps> = ({
       // Routed through the agent (senses live soil/weather/market/crop-health
       // data instead of just answering the text in isolation) rather than the
       // plain /api/ai/assistant endpoint.
-      const res = await fetch('/api/agent/run', {
+      const res = await apiFetch('/api/agent/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

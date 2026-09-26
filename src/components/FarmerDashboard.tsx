@@ -22,6 +22,7 @@ import {
 import { Language, FarmerProfile, SoilTelemetry, CropScanResult } from '../types';
 import { MANDI_PRICES } from '../data/mockData';
 import { t } from '../utils/translations';
+import { apiFetch } from '../lib/api';
 
 interface FarmerDashboardProps {
   onNavigate: (view: string) => void;
@@ -57,7 +58,7 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({
   const fetchAdvisory = async () => {
     setIsLoadingAdvisory(true);
     try {
-      const res = await fetch('/api/ai/unified-recommendations', {
+      const res = await apiFetch('/api/ai/unified-recommendations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
