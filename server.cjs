@@ -751,7 +751,7 @@ function startAutonomousMonitor(defaultFarmer) {
 // server.ts
 import_dotenv.default.config();
 var app = (0, import_express3.default)();
-var PORT = 3e3;
+var PORT = Number(process.env.PORT) || 3e3;
 app.use(import_express3.default.json({ limit: "35mb" }));
 app.use(import_express3.default.urlencoded({ extended: true, limit: "35mb" }));
 app.use("/api/agent", agentRouter);
