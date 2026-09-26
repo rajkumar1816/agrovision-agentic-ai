@@ -7,6 +7,7 @@ const projectRoot = fileURLToPath(new URL('.', import.meta.url));
 
 export default defineConfig(() => {
   return {
+    base: process.env.NODE_ENV === 'production' ? '/agrovision-agentic-ai/' : '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
